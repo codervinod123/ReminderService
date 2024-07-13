@@ -1,4 +1,4 @@
-const sender=require('../config/email');
+const sender=require('../config/emailConfig');
 
 class SimpleMailRepository {
 
@@ -7,8 +7,8 @@ class SimpleMailRepository {
             const response=await sender.sendMail({
                     from: 'vinodgen630@gmail.com',
                     to: 'vinodpr737947@gmail.com',
-                    subject:'Subject',
-                    text:'Testing'
+                    subject:'Testing fro the email services',
+                    text:'Testing from vinod side to check that ther reminder service is working totally fine'
                 })
 
             return response;
