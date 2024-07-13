@@ -2,7 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const {PORT}=require('./config/serverConfig');
 
-const { CronJob }=require('cron');
+
 
 const startReminderService=()=>{
 
@@ -13,13 +13,21 @@ const startReminderService=()=>{
     const appRouter=require('./routes/index');
     app.use('/api',appRouter);
 
-   
-    const SimpleMailRepository=require('./repository/simpleMail-repository');;
-    const senderrr=new SimpleMailRepository();
 
+    const EmailController=require('./controllers/email-controller');
+    
+    const EmailService =require('./services/email-service');
+    const serrrrr=new EmailService(); 
+
+    const simpleMailSender=require('./helper/emailjobs');
     
     app.listen(PORT,async()=>{
 
+         app.get('/api/v1/reminder', EmailController.getAll);
+         app.post('/api/v1/reminder', EmailController.create);
+
+         simpleMailSender();
+       
         // CronJob.from({
         //     cronTime: '*/1 * * * *',
         //     onTick:async function () {
